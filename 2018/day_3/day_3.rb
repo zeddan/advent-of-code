@@ -1,16 +1,22 @@
-require 'set'
-
 class Challenge
 
   def solve_part_1(input)
-    points = input.reduce([]){ |total, claim| total + area(claim) }
-    points.group_by(&:itself).select{ |k,v| v.size > 1 }.map(&:first).length
+    overlap(input).length
   end
 
   def solve_part_2(input)
+    overlap = overlap(input)
+    input.each { |i| return i if (area(i) & overlap).empty? }
   end
 
   private
+
+  def overlap(points)
+    points.reduce([]){ |total, claim| total + area(claim) }
+          .group_by(&:itself)
+          .select{ |k,v| v.size > 1 }
+          .map(&:first)
+  end
 
   def area(s)
     x,y = s.scan(/[0-9]+,[0-9]+/).first.split(",").map(&:to_i)

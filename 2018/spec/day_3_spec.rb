@@ -8,8 +8,9 @@ describe "day 3" do
     expect(challenge.solve_part_1(input)).to eql(4)
   end
 
-  xit "part 2" do
+  it "part 2" do
     challenge = Challenge.new
-    expect().to eql()
+    input = ["#1 @ 1,3: 4x4", "#2 @ 3,1: 4x4", "#3 @ 5,5: 2x2"]
+    expect(challenge.solve_part_2(input)).to eql("#3 @ 5,5: 2x2")
   end
 end
