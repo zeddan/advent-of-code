@@ -17,10 +17,10 @@ class Challenge
   end
 
   def sleeps(input)
-    input.sort! { |a, b| a[0...18] <=> b[0...18] }
+    input.sort!
     guard, sleep = "", 0
     sleeps = Hash.new{ |h,k| h[k] = { total: 0, times: []  } }
-    input.each { |i|
+    input.each do |i|
       case i[19]
       when "G" then
         guard = i[19..-1].scan(/#[0-9]+/).first[1..-1]
@@ -31,7 +31,7 @@ class Challenge
         sleeps[guard][:total] += wokeup - sleep
         sleeps[guard][:times] << (sleep..wokeup).to_a
       end
-    }
+    end
     sleeps
   end
 
