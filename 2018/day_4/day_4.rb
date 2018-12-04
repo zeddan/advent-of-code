@@ -23,7 +23,7 @@ class Challenge
     input.each do |i|
       case i[19]
       when "G" then
-        guard = i[19..-1].scan(/#[0-9]+/).first[1..-1]
+        guard = i.scan(/\d+/).last
       when "f" then
         sleep = i[15..16].to_i
       when "w" then
