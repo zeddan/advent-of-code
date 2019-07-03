@@ -8,7 +8,7 @@ class Challenge
       if str[idx].downcase == str[idx + 1].downcase && str[idx] != str[idx + 1]
         str.delete_at(idx)
         str.delete_at(idx)
-        idx -= 1 unless idx == 0
+        idx -= 1
       else
         idx += 1
       end
