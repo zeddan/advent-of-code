@@ -24,5 +24,22 @@ class Challenge
   end
 
   def part_2
+    x = 0
+    y = 0
+    aim = 0
+
+    input.each do |line|
+      units = line[-1].to_i
+      if line.start_with? "forward"
+        x += units
+        y += aim * units
+      elsif line.start_with? "down"
+        aim += units
+      elsif line.start_with? "up"
+        aim -= units
+      end
+    end
+
+    x * y
   end
 end
