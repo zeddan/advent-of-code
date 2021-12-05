@@ -5,9 +5,9 @@ class Challenge
     @input = input
   end
 
-  def part_1(input)
+  def part_1
   end
 
-  def part_2(input)
+  def part_2
   end
 end
