@@ -23,6 +23,23 @@ class Challenge
   end
 
   def part_2
+    numbers = input.first.split(",")
+    @drawn = (0...5).map { |i| numbers.delete_at(i) }
+    boards = generate_boards
+    won = false
+    winning_board = []
+    until numbers.empty?
+      drawn << numbers.delete_at(0)
+      boards.each do |board|
+        won = row_win?(board) || col_win?(board)
+        if won
+          winning_board = board
+          boards.delete(board)
+          puts calculate_score(winning_board)
+        end
+      end
+    end
+    calculate_score(winning_board)
   end
 
   private
