@@ -1,6 +1,6 @@
 require_relative "day_x"
 
-input = File.open("input.txt", "r") { |f| f.map(&:strip) }
+input = File.open(ARGV[0] || "input.txt", "r") { |f| f.map(&:strip) }
 challenge = Challenge.new(input)
 
 puts "Part 1: #{challenge.part_1}"
