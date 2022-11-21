@@ -10,6 +10,6 @@ class Challenge
   end
 
   def part_2
-    input.min.upto(input.max).map { |j| input.map { |i| (i-j).abs.times.map { |x| x+1 }.sum }.sum }.min
+    input.min.upto(input.max).map { |j| input.map { |i| (i-j).abs * ((i-j).abs + 1) / 2}.sum }.min
   end
 end
