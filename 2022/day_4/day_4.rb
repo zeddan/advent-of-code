@@ -20,5 +20,16 @@ class Challenge
   end
 
   def part_2
+    overlaps = 0
+    input.map do |pairs|
+      p1,p2 = pairs.split(",")
+      p11,p12 = p1.split("-")
+      p21,p22 = p2.split("-")
+      r1 = (p11.to_i..p12.to_i).to_a
+      r2 = (p21.to_i..p22.to_i).to_a
+      overlap = r1 & r2
+      overlaps += 1 if overlap.any?
+    end
+    overlaps
   end
 end
