@@ -26,6 +26,23 @@ class Challenge
   end
 
   def part_1
+    dirs = process!
+
+    dirs.map(&:find_size).select { |v| v <= 100000 }.sum
+  end
+
+  def part_2
+    dirs = process!
+
+    total = 70000000
+    space_needed = 30000000
+
+    dirs.map(&:find_size)
+        .select { |d| d > space_needed-(total-dirs.first.find_size) }
+        .min
+  end
+
+  def process!
     cd = []
     dirs = Set.new
     input.each do |output|
@@ -51,10 +68,6 @@ class Challenge
         end
       end
     end
-
-    dirs.map(&:find_size).select { |v| v <= 100000 }.sum
-  end
-
-  def part_2
+    dirs
   end
 end
