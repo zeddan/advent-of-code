@@ -1,15 +1,33 @@
 class Challenge
+  require "set"
+
   attr_reader :input
 
   def initialize(input)
     @input = input
   end
 
-  def part_1
-    require "byebug"
+  class Directory
+    attr_accessor :name, :dirs, :size
 
+    def initialize(name)
+      @name = name
+      @dirs = Set.new
+      @size = 0
+    end
+
+    def find_size
+      return size if dirs.empty?
+
+      size + dirs.map do |sub_dir|
+        sub_dir.find_size
+      end.sum
+    end
+  end
+
+  def part_1
     cd = []
-    dirs = Hash.new { |h,k| h[k] = {dirs: [], size: 0} }
+    dirs = Set.new
     input.each do |output|
       a,b,c = output.split(" ")
       if a == "$"
@@ -18,33 +36,25 @@ class Challenge
             cd.pop
             next
           else
-            cd << c
+            dir = cd[-1]&.dirs&.find { |d| d.name == c } || Directory.new(c)
+            cd << dir
+            dirs << dir
           end
         elsif b == "ls"
           next
         end
       else
         if a == "dir"
-          dirs[cd[-1]][:dirs] << b
+          cd[-1].dirs << Directory.new(b)
         else
-          dirs[cd[-1]][:size] += a.to_i
+          cd[-1].size += a.to_i
         end
       end
     end
 
-    dirs.map do |dir|
-      dir[1][:size] + dir[1][:dirs].map { |sub_dir| find_sum(dirs, sub_dir)}.sum
-    end.select { |v| v <= 100000 }.sum
+    dirs.map(&:find_size).select { |v| v <= 100000 }.sum
   end
 
   def part_2
-  end
-
-  def find_sum(dirs, dir)
-    return dirs[dir][:size] if dirs[dir][:dirs].empty?
-
-    dirs[dir][:size] + dirs[dir][:dirs].map do |sub_dir|
-      find_sum(dirs, sub_dir)
-    end.sum
   end
 end
